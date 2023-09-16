@@ -9,7 +9,7 @@ export const getBaseUrl = () => {
   }
 
   if (process.env.NEXT_PUBLIC_WEBAPP_URL) {
-    return `https://${process.env.NEXT_PUBLIC_WEBAPP_URL}`;
+    return process.env.NEXT_PUBLIC_WEBAPP_URL;
   }
 
   return `http://localhost:${process.env.PORT ?? 3000}`;
