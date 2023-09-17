@@ -1,12 +1,12 @@
-import { DocumentDataType, Role } from '@prisma/client';
+import { DocumentDataType, PrismaClient, Role } from '@prisma/client';
 import fs from 'node:fs';
 import path from 'node:path';
 
 import { hashSync } from '@documenso/lib/server-only/auth/hash';
 
-import { prisma } from './index';
-
 const seedDatabase = async () => {
+  const prisma = new PrismaClient();
+
   const examplePdf = fs
     .readFileSync(path.join(__dirname, '../../assets/example.pdf'))
     .toString('base64');
