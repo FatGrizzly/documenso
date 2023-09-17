@@ -13,6 +13,8 @@ function log() {
 
 function build_webapp() {
   log "Building webapp for $VERCEL_ENV"
+  
+  remap_database_integration
 
   npm run prisma:migrate-deploy --workspace=@documenso/prisma
 
@@ -36,6 +38,8 @@ function remap_webapp_env() {
 
 function build_marketing() {
   log "Building marketing for $VERCEL_ENV"
+  
+  remap_database_integration
 
   npm run prisma:generate --workspace=@documenso/prisma
   npm run build -- --filter @documenso/marketing
@@ -49,7 +53,7 @@ function remap_marketing_env() {
   fi
 }
 
-function remap_supabase_integration() {
+function remap_database_integration() {
   log "Remapping Supabase integration for $VERCEL_ENV"
 
   export NEXT_PRIVATE_DATABASE_URL="$POSTGRES_URL"
