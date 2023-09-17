@@ -25,7 +25,7 @@ function build_webapp() {
     npm run prisma:seed --workspace=@documenso/prisma
   fi
 
-  npm run build -- --filter @documenso/app
+  npm run build -- --filter @documenso/web
 }
 
 function remap_webapp_env() {
