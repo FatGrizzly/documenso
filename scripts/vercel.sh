@@ -12,12 +12,12 @@ function log() {
 }
 
 function build_webapp() {
-  log "Building webapp for $VERCEL_ENVIRONMENT"
+  log "Building webapp for $VERCEL_ENV"
 
   npm run prisma:migrate-deploy --workspace=@documenso/prisma
 
-  if [[ "$VERCEL_ENVIRONMENT" != "production" ]]; then
-    log "Seed database for $VERCEL_ENVIRONMENT"
+  if [[ "$VERCEL_ENV" != "production" ]]; then
+    log "Seeding database for $VERCEL_ENV"
 
     npm run prisma:seed --workspace=@documenso/prisma
   fi
@@ -26,8 +26,8 @@ function build_webapp() {
 }
 
 function remap_webapp_env() {
-  if [[ "$VERCEL_ENVIRONMENT" != "production" ]]; then
-    log "Remapping webapp environment variables for $VERCEL_ENVIRONMENT"
+  if [[ "$VERCEL_ENV" != "production" ]]; then
+    log "Remapping webapp environment variables for $VERCEL_ENV"
 
     export NEXTAUTH_URL="https://$VERCEL_URL"
     export NEXT_PUBLIC_WEBAPP_URL="https://$VERCEL_URL"
@@ -35,22 +35,22 @@ function remap_webapp_env() {
 }
 
 function build_marketing() {
-  log "Building marketing for $VERCEL_ENVIRONMENT"
+  log "Building marketing for $VERCEL_ENV"
 
   npm run prisma:generate --workspace=@documenso/prisma
   npm run build -- --filter @documenso/marketing
 }
 
 function remap_marketing_env() {
-  if [[ "$VERCEL_ENVIRONMENT" != "production" ]]; then
-    log "Remapping marketing environment variables for $VERCEL_ENVIRONMENT"
+  if [[ "$VERCEL_ENV" != "production" ]]; then
+    log "Remapping marketing environment variables for $VERCEL_ENV"
 
     export NEXT_PUBLIC_MARKETING_URL="https://$VERCEL_URL"
   fi
 }
 
 function remap_supabase_integration() {
-  log "Remapping Supabase integration for $VERCEL_ENVIRONMENT"
+  log "Remapping Supabase integration for $VERCEL_ENV"
 
   export NEXT_PRIVATE_DATABASE_URL="$POSTGRES_URL"
   export NEXT_PRIVATE_DIRECT_DATABASE_URL="$POSTGRES_URL_NON_POOLING"
