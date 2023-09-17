@@ -16,6 +16,7 @@ function build_webapp() {
   
   remap_database_integration
 
+  npm run prisma:generate --workspace=@documenso/prisma
   npm run prisma:migrate-deploy --workspace=@documenso/prisma
 
   if [[ "$VERCEL_ENV" != "production" ]]; then
