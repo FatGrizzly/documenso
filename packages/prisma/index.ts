@@ -10,6 +10,10 @@ if (!globalThis.prisma) {
   globalThis.prisma = new PrismaClient();
 }
 
+console.log({
+  ['process.env']: process.env,
+});
+
 export const prisma = globalThis.prisma || new PrismaClient();
 
 export const getPrismaClient = () => prisma;
