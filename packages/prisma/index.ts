@@ -10,9 +10,9 @@ if (!globalThis.prisma) {
   globalThis.prisma = new PrismaClient();
 }
 
-console.log({
-  ['process.env']: process.env,
-});
+Object.keys(process.env)
+  .filter((key) => key.startsWith('NEXT_'))
+  .forEach((key) => console.log({ [key]: process.env[key] }));
 
 export const prisma = globalThis.prisma || new PrismaClient();
 
