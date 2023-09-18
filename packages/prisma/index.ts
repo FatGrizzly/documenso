@@ -11,9 +11,17 @@ if (!globalThis.prisma) {
 }
 
 Object.keys(process.env)
-  .filter((key) => key.startsWith('NEXT_'))
+  .filter((key) => key.includes('DATABASE'))
   .forEach((key) => console.log({ [key]: process.env[key] }));
 
-export const prisma = globalThis.prisma || new PrismaClient();
+export const prisma =
+  globalThis.prisma ||
+  new PrismaClient({
+    datasources: {
+      db: {
+        url: process.env.NEXT_PRIVATE_DATABASE_URL,
+      },
+    },
+  });
 
 export const getPrismaClient = () => prisma;
