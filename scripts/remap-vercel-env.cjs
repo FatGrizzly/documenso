@@ -11,11 +11,11 @@ const remapVercelEnv = () => {
   }
 
   if (process.env.POSTGRES_URL) {
-    process.env.NEXT_PRIVATE_DATABASE_URL = POSTGRES_URL;
+    process.env.NEXT_PRIVATE_DATABASE_URL = process.env.POSTGRES_URL;
   }
 
   if (process.env.POSTGRES_URL_NON_POOLING) {
-    process.env.NEXT_PRIVATE_DIRECT_DATABASE_URL = POSTGRES_URL_NON_POOLING;
+    process.env.NEXT_PRIVATE_DIRECT_DATABASE_URL = process.env.POSTGRES_URL_NON_POOLING;
   }
 
   if (process.env.VERCEL_ENV !== 'production' && process.env.DEPLOYMENT_TARGET === 'webapp') {
