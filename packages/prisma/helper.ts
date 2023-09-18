@@ -1,6 +1,10 @@
 /// <reference types="@documenso/tsconfig/process-env.d.ts" />
 
 export const getDatabaseUrl = () => {
+  if (process.env.POSTGRES_PRISMA_URL) {
+    return process.env.POSTGRES_PRISMA_URL;
+  }
+
   if (process.env.POSTGRES_URL) {
     // If we're using a connection pool, we need to let Prisma know that
     // we're using PgBouncer.
@@ -9,7 +13,7 @@ export const getDatabaseUrl = () => {
 
       url.searchParams.set('pgbouncer', 'true');
 
-      process.env.POSTGRES_URL = url.toString();
+      return url.toString();
     }
   }
 

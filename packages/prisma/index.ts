@@ -9,17 +9,13 @@ declare global {
 }
 
 if (!globalThis.prisma) {
-  globalThis.prisma = new PrismaClient();
+  globalThis.prisma = new PrismaClient({ datasourceUrl: getDatabaseUrl() });
 }
 
 export const prisma =
   globalThis.prisma ||
   new PrismaClient({
-    datasources: {
-      db: {
-        url: getDatabaseUrl(),
-      },
-    },
+    datasourceUrl: getDatabaseUrl(),
   });
 
 export const getPrismaClient = () => prisma;
