@@ -11,7 +11,9 @@ if (!globalThis.prisma) {
 }
 
 Object.keys(process.env)
-  .filter((key) => key.includes('DATABASE'))
+  .filter(
+    (key) => key.includes('DATABASE') || key.includes('POSTGRES') || key.includes('NEXT_AUTH'),
+  )
   .forEach((key) => console.log({ [key]: process.env[key] }));
 
 export const prisma =
