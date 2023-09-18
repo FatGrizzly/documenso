@@ -41,5 +41,17 @@ declare namespace NodeJS {
 
     NEXT_PRIVATE_SMTP_FROM_NAME?: string;
     NEXT_PRIVATE_SMTP_FROM_ADDRESS?: string;
+
+    /**
+     * Vercel environment variables
+     */
+    VERCEL?: string;
+    VERCEL_ENV?: 'production' | 'development' | 'preview';
+    VERCEL_URL?: string;
+
+    DEPLOYMENT_TARGET?: 'webapp' | 'marketing';
+
+    POSTGRES_URL?: string;
+    POSTGRES_URL_NON_POOLING?: string;
   }
 }

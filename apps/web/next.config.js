@@ -1,10 +1,13 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path');
 const { version } = require('./package.json');
+const { remapVercelEnv } = require('../../scripts/remap-vercel-env.cjs');
 
 const { parsed: env } = require('dotenv').config({
   path: path.join(__dirname, '../../.env.local'),
 });
+
+remapVercelEnv();
 
 /** @type {import('next').NextConfig} */
 const config = {
