@@ -1,0 +1,197 @@
+services:
+  - type: web
+    name: documenso-app
+    env: node
+    plan: free
+    buildCommand: npm i turbo && npm install --package-lock-only && npm ci && npm run build
+    startCommand: npx prisma migrate deploy; npm run start
+    healthCheckPath: /api/health
+
+    envVars:
+      - key: NODE_VERSION
+        value: 18.17.0
+
+      - key: DATABASE_URL
+        fromDatabase:
+          name: documenso-db
+          property: connectionString
+
+      - key: NEXT_PUBLIC_WEBAPP_URL
+        fromService:
+          name: documenso-app
+          type: web
+          envVarKey: RENDER_EXTERNAL_URL
+
+      - key: NEXTAUTH_SECRET
+        fromEnvFile:
+          path: .env
+          key: NEXTAUTH_SECRET
+
+      - key: NEXTAUTH_URL
+        fromEnvFile:
+          path: .env
+          key: NEXTAUTH_URL
+
+      - key: NEXT_PUBLIC_SITE_URL
+        fromEnvFile:
+          path: .env
+          key: NEXT_PUBLIC_SITE_URL
+
+      - key: NEXT_PUBLIC_APP_URL
+        fromEnvFile:
+          path: .env
+          key: NEXT_PUBLIC_APP_URL
+
+      - key: NEXT_PRIVATE_DATABASE_URL
+        fromEnvFile:
+          path: .env
+          key: NEXT_PRIVATE_DATABASE_URL
+
+      - key: NEXT_PRIVATE_DIRECT_DATABASE_URL
+        fromEnvFile:
+          path: .env
+          key: NEXT_PRIVATE_DIRECT_DATABASE_URL
+
+      - key: NEXT_PUBLIC_UPLOAD_TRANSPORT
+        fromEnvFile:
+          path: .env
+          key: NEXT_PUBLIC_UPLOAD_TRANSPORT
+
+      - key: NEXT_PRIVATE_UPLOAD_ENDPOINT
+        fromEnvFile:
+          path: .env
+          key: NEXT_PRIVATE_UPLOAD_ENDPOINT
+
+      - key: NEXT_PRIVATE_UPLOAD_REGION
+        fromEnvFile:
+          path: .env
+          key: NEXT_PRIVATE_UPLOAD_REGION
+
+      - key: NEXT_PRIVATE_UPLOAD_BUCKET
+        fromEnvFile:
+          path: .env
+          key: NEXT_PRIVATE_UPLOAD_BUCKET
+
+      - key: NEXT_PRIVATE_UPLOAD_ACCESS_KEY_ID
+        fromEnvFile:
+          path: .env
+          key: NEXT_PRIVATE_UPLOAD_ACCESS_KEY_ID
+
+      - key: NEXT_PRIVATE_UPLOAD_SECRET_ACCESS_KEY
+        fromEnvFile:
+          path: .env
+          key: NEXT_PRIVATE_UPLOAD_SECRET_ACCESS_KEY
+
+      - key: NEXT_PRIVATE_SMTP_TRANSPORT
+        fromEnvFile:
+          path: .env
+          key: NEXT_PRIVATE_SMTP_TRANSPORT
+
+      - key: NEXT_PRIVATE_SMTP_HOST
+        fromEnvFile:
+          path: .env
+          key: NEXT_PRIVATE_SMTP_HOST
+
+      - key: NEXT_PRIVATE_SMTP_PORT
+        fromEnvFile:
+          path: .env
+          key: NEXT_PRIVATE_SMTP_PORT
+
+      - key: NEXT_PRIVATE_SMTP_USERNAME
+        fromEnvFile:
+          path: .env
+          key: NEXT_PRIVATE_SMTP_USERNAME
+
+      - key: NEXT_PRIVATE_SMTP_PASSWORD
+        fromEnvFile:
+          path: .env
+          key: NEXT_PRIVATE_SMTP_PASSWORD
+
+      - key: NEXT_PRIVATE_SMTP_APIKEY_USER
+        fromEnvFile:
+          path: .env
+          key: NEXT_PRIVATE_SMTP_APIKEY_USER
+
+      - key: NEXT_PRIVATE_SMTP_APIKEY
+        fromEnvFile:
+          path: .env
+          key: NEXT_PRIVATE_SMTP_APIKEY
+
+      - key: NEXT_PRIVATE_SMTP_SECURE
+        fromEnvFile:
+          path: .env
+          key: NEXT_PRIVATE_SMTP_SECURE
+
+      - key: NEXT_PRIVATE_SMTP_FROM_NAME
+        fromEnvFile:
+          path: .env
+          key: NEXT_PRIVATE_SMTP_FROM_NAME
+
+      - key: NEXT_PRIVATE_SMTP_FROM_ADDRESS
+        fromEnvFile:
+          path: .env
+          key: NEXT_PRIVATE_SMTP_FROM_ADDRESS
+
+      - key: NEXT_PRIVATE_MAILCHANNELS_API_KEY
+        fromEnvFile:
+          path: .env
+          key: NEXT_PRIVATE_MAILCHANNELS_API_KEY
+
+      - key: NEXT_PRIVATE_MAILCHANNELS_ENDPOINT
+        fromEnvFile:
+          path: .env
+          key: NEXT_PRIVATE_MAILCHANNELS_ENDPOINT
+
+      - key: NEXT_PRIVATE_MAILCHANNELS_DKIM_DOMAIN
+        fromEnvFile:
+          path: .env
+          key: NEXT_PRIVATE_MAILCHANNELS_DKIM_DOMAIN
+
+      - key: NEXT_PRIVATE_MAILCHANNELS_DKIM_SELECTOR
+        fromEnvFile:
+          path: .env
+          key: NEXT_PRIVATE_MAILCHANNELS_DKIM_SELECTOR
+
+      - key: NEXT_PRIVATE_MAILCHANNELS_DKIM_PRIVATE_KEY
+        fromEnvFile:
+          path: .env
+          key: NEXT_PRIVATE_MAILCHANNELS_DKIM_PRIVATE_KEY
+
+      - key: NEXT_PRIVATE_STRIPE_API_KEY
+        fromEnvFile:
+          path: .env
+          key: NEXT_PRIVATE_STRIPE_API_KEY
+
+      - key: NEXT_PRIVATE_STRIPE_WEBHOOK_SECRET
+        fromEnvFile:
+          path: .env
+          key: NEXT_PRIVATE_STRIPE_WEBHOOK_SECRET
+
+      - key: NEXT_PUBLIC_STRIPE_COMMUNITY_PLAN_MONTHLY_PRICE_ID
+        fromEnvFile:
+          path: .env
+          key: NEXT_PUBLIC_STRIPE_COMMUNITY_PLAN_MONTHLY_PRICE_ID
+
+      - key: NEXT_PUBLIC_STRIPE_COMMUNITY_PLAN_YEARLY_PRICE_ID
+        fromEnvFile:
+          path: .env
+          key: NEXT_PUBLIC_STRIPE_COMMUNITY_PLAN_YEARLY_PRICE_ID
+
+      - key: NEXT_PUBLIC_POSTHOG_KEY
+        fromEnvFile:
+          path: .env
+          key: NEXT_PUBLIC_POSTHOG_KEY
+
+      - key: NEXT_PUBLIC_POSTHOG_HOST
+        fromEnvFile:
+          path: .env
+          key: NEXT_PUBLIC_POSTHOG_HOST
+
+      - key: NEXT_PUBLIC_FEATURE_BILLING_ENABLED
+        fromEnvFile:
+          path: .env
+          key: NEXT_PUBLIC_FEATURE_BILLING_ENABLED
+
+databases:
+  - name: documenso-db
+    plan: free
