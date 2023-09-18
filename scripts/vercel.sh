@@ -57,7 +57,7 @@ function remap_marketing_env() {
 function remap_database_integration() {
   log "Remapping Supabase integration for $VERCEL_ENV"
 
-  export NEXT_PRIVATE_DATABASE_URL="$POSTGRES_URL"
+  export NEXT_PRIVATE_DATABASE_URL="$POSTGRES_URL?pgbouncer=true"
   export NEXT_PRIVATE_DIRECT_DATABASE_URL="$POSTGRES_URL_NON_POOLING"
 }
 
