@@ -1,5 +1,7 @@
 import { PrismaClient } from '@prisma/client';
 
+import { getDatabaseUrl } from './helper';
+
 declare global {
   // We need `var` to declare a global variable in TypeScript
   // eslint-disable-next-line no-var
@@ -10,18 +12,12 @@ if (!globalThis.prisma) {
   globalThis.prisma = new PrismaClient();
 }
 
-Object.keys(process.env)
-  .filter(
-    (key) => key.includes('DATABASE') || key.includes('POSTGRES') || key.includes('NEXT_AUTH'),
-  )
-  .forEach((key) => console.log({ [key]: process.env[key] }));
-
 export const prisma =
   globalThis.prisma ||
   new PrismaClient({
     datasources: {
       db: {
-        url: process.env.NEXT_PRIVATE_DATABASE_URL,
+        url: getDatabaseUrl(),
       },
     },
   });

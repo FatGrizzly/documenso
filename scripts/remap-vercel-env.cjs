@@ -3,6 +3,8 @@
 /**
  * Remap Vercel environment variables to our defined Next.js environment variables.
  *
+ * @deprecated This is no longer needed because we can't inject runtime environment variables via next.config.js
+ *
  * @returns {void}
  */
 const remapVercelEnv = () => {

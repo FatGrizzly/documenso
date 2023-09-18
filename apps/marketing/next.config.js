@@ -7,8 +7,6 @@ const { parsed: env } = require('dotenv').config({
   path: path.join(__dirname, '../../.env.local'),
 });
 
-remapVercelEnv();
-
 /** @type {import('next').NextConfig} */
 const config = {
   experimental: {
